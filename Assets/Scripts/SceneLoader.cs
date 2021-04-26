@@ -43,13 +43,6 @@ public class SceneLoader : MonoBehaviour
 
     public void quit()
     {
-        if (Application.isEditor)
-        {
-            UnityEditor.EditorApplication.isPlaying = false;
-        }
-		else
-		{
-			Application.Quit();
-		}
+        Application.Quit();
 	}
 }
