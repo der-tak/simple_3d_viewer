@@ -1,50 +1,81 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class model_switch : MonoBehaviour
 {
     //initialization
-    public GameObject[] modelList;
+    [SerializeField] TextMeshProUGUI label;
+    [SerializeField] TextMeshProUGUI log;
+    [SerializeField] GameObject[] modelList;
     int index;
 
     void Start()
     {
+        DisableAllModels();
+
         index = 0;
         modelList[index].SetActive(true);
+        label.text = modelList[index].name;
+        log.text = "Log: " + index;
+    }
+
+    private void DisableAllModels()
+    {
+        for (int i = 0; i <= modelList.Length-1; i++)
+        {
+            modelList[i].SetActive(false);
+        }
     }
 
     public void NextModel()
     {
-        if (index == modelList.Length-1)
+        CheckForEnd();
+        stringOutput();
+    }
+
+    private void CheckForEnd()
+    {
+        if (index == modelList.Length - 1)
         {
             index = 0;
-            modelList[modelList.Length-1].SetActive(false);
+            modelList[modelList.Length - 1].SetActive(false);
             modelList[index].SetActive(true);
         }
-        else 
+        else
         {
             modelList[index].SetActive(false);
-            modelList[index+1].SetActive(true);
+            modelList[index + 1].SetActive(true);
             index += 1;
         }
-        Debug.Log(index);
     }
 
     public void PrevModel()
     {
-        if(index == 0)
+        checkForStart();
+        stringOutput();
+    }
+
+    private void stringOutput()
+    {
+        label.text = modelList[index].name;
+        log.text = "Log: " + index;
+    }
+
+    private void checkForStart()
+    {
+        if (index == 0)
         {
-            index = modelList.Length-1;
+            index = modelList.Length - 1;
             modelList[0].SetActive(false);
             modelList[index].SetActive(true);
         }
         else
         {
             modelList[index].SetActive(false);
-            modelList[index-1].SetActive(true);
-            index -= 1;   
+            modelList[index - 1].SetActive(true);
+            index -= 1;
         }
-        Debug.Log(index);
     }
 }
