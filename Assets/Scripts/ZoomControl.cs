@@ -1,78 +1,39 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
 #pragma warning disable CS0108, CS0649 //suppress non relevant warnings
 
 public class ZoomControl : MonoBehaviour
 {
-    //member variables
-    Controls controls;
-    float zoom;
-    Mouse mouse;
-    Vector3 zoomVector;
-    float sliderZoom;
-
-    //[SerializeField] InputActionAsset uiInput;
-    [SerializeField] InputActionAsset sceneInput;
-
-    //params
-    [Header("Mouse Scroll Zoom")]
-    [SerializeField] float zoomSpeed;
-    [SerializeField] float maxZoom;
-    [SerializeField] float minZoom;
+    //accessible members
+    [SerializeField] AdvancedRotation advancedRotation;
 
     [Header("Slider Zoom")]
-    [SerializeField] float defaultFOV;
+    [SerializeField] float maxZoomLvl;
+    [SerializeField] float minZoomLvl;
+    [Tooltip("Change minimum FOV by chaning FOV in camera object itself.")]
     [SerializeField] float maxFOV;
-    [SerializeField] Vector3 defaultScale;
-    [SerializeField] float curScale;
 
     [Header("Camera Reference")]
     [SerializeField] Camera camera;
-    private Vector3 defaultCameraPosition;
+    private Vector3 startCameraPosition;
+    private float minFOV;
 
     private void Awake()
     {
-        defaultScale = gameObject.transform.localScale;
-        defaultCameraPosition = camera.transform.localPosition;
-    }
-
-    public void OnMouseZoom(InputAction.CallbackContext value)
-    {
-        SetToLimit();
-        curScale = defaultScale.x;
-        float inputScale = value.ReadValue<float>();
-
-        float zoomControl = inputScale * zoomSpeed;
-        curScale += zoomControl;
-        gameObject.transform.localScale = new Vector3(Mathf.Clamp(curScale, minZoom, maxZoom), 
-                                                      Mathf.Clamp(curScale, minZoom, maxZoom),
-                                                      Mathf.Clamp(curScale, minZoom, maxZoom));
-    }
-
-    private void SetToLimit()
-    {
-        if (curScale > maxZoom)
-        {
-            curScale = maxZoom;
-        }
-        else if (curScale < minZoom)
-        {
-            curScale = minZoom;
-        }
-        else
-        {
-            return;
-        }
+        startCameraPosition = camera.transform.localPosition;
+        minFOV = camera.fieldOfView;
     }
 
     public void SliderZoom(float zoomValue)
     {
-        float newzoom = minZoom + zoomValue * (maxZoom - minZoom);
+        advancedRotation.disableInput();
 
-        camera.transform.localPosition = defaultCameraPosition + new Vector3(0, 0, newzoom);
+        float newzoom = minZoomLvl + zoomValue * (maxZoomLvl - minZoomLvl);
 
-        camera.fieldOfView = defaultFOV + zoomValue * (maxFOV - defaultFOV);
+        camera.transform.localPosition = startCameraPosition + new Vector3(0, 0, newzoom);
+
+        camera.fieldOfView = minFOV + zoomValue * (maxFOV - minFOV);
+
+        advancedRotation.enableInput();
     }
 }

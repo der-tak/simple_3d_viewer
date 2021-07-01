@@ -1884,8 +1884,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1555254199}
   - component: {fileID: 7444929979327127300}
-  - component: {fileID: 7444929979327127299}
   - component: {fileID: 7444929979327127297}
+  - component: {fileID: 1555254200}
   m_Layer: 0
   m_Name: Cam3DFullController
   m_TagString: Untagged
@@ -1908,6 +1908,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 8.23, y: -5, z: 0}
+--- !u!114 &1555254200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555254198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98785718d60b236ca868f34b1f30db87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  rotationMinAngle: -7
+  rotationMaxAngle: 50
 --- !u!1 &1677952926
 GameObject:
   m_ObjectHideFlags: 0
@@ -3225,7 +3240,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 7444929979327127299}
+      objectReference: {fileID: 0}
     - target: {fileID: 4147722259388394081, guid: fbb8d9f11e72c3b40adaa7fc212a6af3,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -3345,18 +3360,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1555254198}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6b2cb6e449854c48b53e37fc7e5418a, type: 3}
+  m_Script: {fileID: 11500000, guid: ba2780a9199662082932233f10fe6fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneInput: {fileID: -944628639613478452, guid: fb48fdbb5bd3ff5408d960ef3b9f754c,
-    type: 3}
-  zoomSpeed: 1
-  maxZoom: 6
-  minZoom: 0
-  defaultFOV: 30
+  advancedRotation: {fileID: 1555254200}
+  maxZoomLvl: 5
+  minZoomLvl: 0
   maxFOV: 45
-  defaultScale: {x: 0, y: 0, z: 0}
-  curScale: 0
   camera: {fileID: 2091227427}
 --- !u!108 &7444929979327127298
 Light:
@@ -3419,22 +3429,6 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &7444929979327127299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1555254198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6367317443bad894b99d428ac4e5d388, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 0.2
-  minXRot: -5
-  maxXRot: 45
-  smoothRotationSpeed: 5
 --- !u!114 &7444929979327127300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3463,7 +3457,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7444929979327127299}
+      - m_Target: {fileID: 0}
         m_MethodName: OnRotationXYAxis
         m_Mode: 0
         m_Arguments:
